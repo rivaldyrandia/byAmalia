@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playwrite+ID:wght@100..400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Alpine.JS -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <!-- App -->
+    <script src="src/app.js"></script>
+    <title>By Amalia Handcraft</title>
+  </head>
+  <body>
+    <!-- Navbar Start -->
+    <nav class="Navbar" x-data>
+      <a href="#" class="Navbar-logo"><b>by</b><span>Amalia</span></a>
+
+      <div class="Navbar-nav">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#product">Product</a>
+        <a href="#groceries">Groceries</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="Navbar-extra">
+        <a href="#" id="search-button"><i data-feather="search"></i></a>
+        <a href="#" id="shopping-cart-button">
+          <i data-feather="shopping-cart"></i>
+          <span
+            class="Quantity-badge"
+            x-show="$store.cart.quantity"
+            x-text="$store.cart.quantity"
+          ></span>
+        </a>
+        <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+      </div>
+
+      <!-- Search Form Start -->
+      <div class="Search-form">
+        <input type="search" id="search-box" placeholder="Search here..." />
+        <label for="search-box"><i data-feather="search"></i></label>
+      </div>
+      <!-- Search Form End -->
+
+      <!-- Shopping Cart Start -->
+      <div class="Shopping-cart">
+        <template x-for="(item, index) in $store.cart.items" x-keys="index">
+          <div class="Cart-item">
+            <img
+              :src="`img/groceries/${item.img}`"
+              :alt="item.name"
+              srcset=""
+            />
+            <div class="Item-detail">
+              <h3 x-text="item.name"></h3>
+              <div class="Item-price">
+                <span x-text="rupiah(item.price)"></span> &times;
+                <button id="remove" @click="$store.cart.remove(item.id)">
+                  &minus;
+                </button>
+                <span x-text="item.quantity"></span>
+                <button id="add" @click="$store.cart.add(item)">&plus;</button>
+                &equals;
+                <span x-text="rupiah(item.total)"></span>
+              </div>
+            </div>
+            <!-- <i data-feather="trash-2" class="Remove-item"></i> -->
+          </div>
+        </template>
+        <h4 x-show="!$store.cart.items.length" style="margin-top: 1rem">
+          Cart is Empty 😢
+        </h4>
+        <h4 x-show="$store.cart.items.length">
+          Total : <span x-text="rupiah($store.cart.total)"></span>
+        </h4>
+
+        <div class="Form-container" x-show="$store.cart.items.length">
+          <form action="" id="checkoutForm">
+            <h5>Customer Detail</h5>
+
+            <label for="name">
+              <span>Name</span>
+              <input type="text" name="name" id="name" />
+            </label>
+
+            <label for="email">
+              <span>Email</span>
+              <input type="email" name="email" id="email" />
+            </label>
+
+            <label for="phone">
+              <span>Phone</span>
+              <input type="number" name="phone" id="phone" autocomplete="off" />
+            </label>
+
+            <button
+              class="Checkout-button"
+              type="submit"
+              id="checkout-button"
+              value="checkout"
+            >
+              Checkout
+            </button>
+          </form>
+        </div>
+      </div>
+      <!-- Shopping Cart End -->
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- Hero Section Start -->
+    <section class="Hero" id="home">
+      <main class="Content">
+        <h1>Handmade with <span>Love❤️</span></h1>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea, neque.
+        </p>
+        <!-- <a href="#" class="CTA">Buy Now!</a> -->
+      </main>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- About Section Start -->
+    <section class="About" id="about">
+      <h2>by<span>Amalia</span></h2>
+      <div class="row">
+        <div class="About-img">
+          <img
+            src="img/close-up-person-making-handmade-bracelet-with-tweezers.jpg"
+            alt="About Us"
+          />
+        </div>
+        <div class="Content">
+          <h3>For you with Love❤️</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam,
+            obcaecati molestiae ut aut tempore suscipit.
+          </p>
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic
+            aliquid facilis animi nihil beatae aperiam?
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section End -->
+
+    <!-- Product Section Start -->
+    <section class="Product" id="product">
+      <h2>our<span>Product</span></h2>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam est
+        labore natus, harum corporis ducimus.
+      </p>
+
+      <div class="row">
+        <div class="Product-card">
+          <img
+            src="img/product/1.1.jpg"
+            alt="Bross Abu"
+            class="Product-card-img"
+          />
+          <h3 class="Product-card-title">- Red Rose -</h3>
+        </div>
+        <div class="Product-card">
+          <img
+            src="img/product/1.2.jpg"
+            alt="Bross Abu"
+            class="Product-card-img"
+          />
+          <h3 class="Product-card-title">- Golden Times -</h3>
+        </div>
+        <div class="Product-card">
+          <img
+            src="img/product/1.3.jpg"
+            alt="Bross Abu"
+            class="Product-card-img"
+          />
+          <h3 class="Product-card-title">- Warm & Sweet -</h3>
+        </div>
+        <div class="Product-card">
+          <img
+            src="img/product/1.4.jpg"
+            alt="Bross Abu"
+            class="Product-card-img"
+          />
+          <h3 class="Product-card-title">- Sky Blue -</h3>
+        </div>
+        <div class="Product-card">
+          <img
+            src="img/product/1.5.jpg"
+            alt="Bross Abu"
+            class="Product-card-img"
+          />
+          <h3 class="Product-card-title">- Charming Red -</h3>
+        </div>
+        <div class="Product-card">
+          <img
+            src="img/product/1.6.jpg"
+            alt="Bross Abu"
+            class="Product-card-img"
+          />
+          <h3 class="Product-card-title">- Pinky Bross -</h3>
+        </div>
+      </div>
+    </section>
+    <!-- Product Section End -->
+
+    <!-- Groceries Section Start -->
+    <section class="Groceries" id="groceries" x-data="groceries">
+      <h2>our<span>Groceries</span></h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta aliquid
+        veniam, voluptatibus tenetur officia sunt!
+      </p>
+
+      <div class="row">
+        <template x-for="(item, index) in items" x-key="index">
+          <div class="Groceries-card">
+            <div class="Groceries-icons">
+              <a href="#" @click.prevent="$store.cart.add(item)"
+                ><svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#shopping-cart" /></svg
+                >Add to Cart</a
+              >
+              <!-- <a class="Item-detail-button" href="#"
+                ><svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#eye" /></svg
+              ></a> -->
+            </div>
+            <div class="Groceries-image">
+              <img
+                :src="`img/groceries/${item.img}`"
+                :alt="item.name"
+                srcset=""
+              />
+            </div>
+            <div class="Groceries-content">
+              <h3 x-text="item.name"></h3>
+              <div class="Groceries-stars">
+                <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+                <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+                <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+                <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+                <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+              </div>
+              <div class="Groceries-price">
+                <span x-text="rupiah(item.price)"></span>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </section>
+    <!-- Groceries Section End -->
+
+    <!-- Contact Section Start -->
+    <section class="Contact" id="contact">
+      <h2>our<span>Contact</span></h2>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam est
+        labore natus, harum corporis ducimus.
+      </p>
+
+      <div class="row">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.722557669809!2d106.87566927044797!3d-6.92373155244054!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6837ec9e3be035%3A0x6a393aabc1539a36!2sGriya%20Permata%20Permai%202!5e0!3m2!1sen!2sid!4v1718964598467!5m2!1sen!2sid"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="map"
+        ></iframe>
+
+        <form action="">
+          <div class="Input-group">
+            <i data-feather="user"></i>
+            <input type="text" name="" id="" placeholder="Nama" />
+          </div>
+
+          <div class="Input-group">
+            <i data-feather="mail"></i>
+            <input type="text" name="" id="" placeholder="Email" />
+          </div>
+
+          <div class="Input-group">
+            <i data-feather="phone"></i>
+            <input type="text" name="" id="" placeholder="Contact" />
+          </div>
+
+          <button type="submit" class="btn">Reach Us Now !</button>
+        </form>
+      </div>
+    </section>
+    <!-- Contact Section End -->
+
+    <!-- Footer Section Start -->
+    <footer>
+      <div class="Socials">
+        <a href=""><i data-feather="instagram"></i></a>
+        <a href=""><i data-feather="twitter"></i></a>
+        <a href=""><i data-feather="facebook"></i></a>
+      </div>
+
+      <div class="links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#product">Product</a>
+        <a href="#groceries">Groceries</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="Credit">
+        <p>
+          Created by
+          <a href="https://www.tiktok.com/@rivalrnd_">Rivaldirandia</a>. |
+          &copy; 2024.
+        </p>
+      </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Modal Box Item Detail Start -->
+    <div class="Modal" id="item-detail-modal">
+      <div class="Modal-container">
+        <a class="Close-icon" href="#"><i data-feather="x"></i></a>
+        <div class="Modal-content">
+          <img src="img/groceries/grc-1.jpg" alt="Groceries-1" srcset="" />
+          <div class="Groceries-content">
+            <h3>Groceries-1</h3>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellat
+              similique, odio minima odit cumque laudantium iste quos earum et
+              eveniet porro, officiis iusto explicabo provident?
+            </p>
+            <div class="Groceries-stars">
+              <i data-feather="star" class="Star-full"></i>
+              <i data-feather="star" class="Star-full"></i>
+              <i data-feather="star" class="Star-full"></i>
+              <i data-feather="star" class="Star-full"></i>
+              <i data-feather="star"></i>
+            </div>
+            <div class="Groceries-price">IDR 20K <span>IDR 40K</span></div>
+            <a href="#"
+              ><i data-feather="shopping-cart"></i><span>Add Item</span></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Box Item Detail End -->
+
+    <!-- Feather Icons -->
+    <script>
+      feather.replace();
+    </script>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+  </body>
+</html>
